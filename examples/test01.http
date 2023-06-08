@@ -1,0 +1,9 @@
+PUT http://httpbin.org/put
+
+###
+
+POST http://httpbin.org/post
+
+###
+
+GET http://httpbin.org/get

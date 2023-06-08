@@ -1,0 +1,21 @@
+POST http://httpbin.org/post
+Content-Type: application/json
+
+{
+    "token": "sometoken",
+    "id": 237
+}
+
+> {%
+   client.global.set('auth_token', response.body.json.token);
+   client.global.set('some_id', response.body.json.id);
+%}
+
+###
+
+PUT http://httpbin.org/put
+X-Auth-Token: {{auth_token}}
+
+{
+    "id": {{some_id}}
+}
