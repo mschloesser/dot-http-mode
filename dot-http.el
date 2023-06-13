@@ -39,9 +39,8 @@ The file contents are defined by START until END (i.e a selected region)."
   (shell-command (concat "dot-http "
 			 (format "-l %d " line)
 			 (shell-quote-argument file))
-		 "dot-http Out"
-		 dot-http-error-buffer-name)
-  )
+		 (format "dot-http-result-%s" (format-time-string "%Y-%m-%dT%H%M%S.%3N"))
+		 dot-http-error-buffer-name))
 
 (defconst dot-http-methods '("GET"
 			     "HEAD"
