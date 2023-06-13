@@ -91,7 +91,7 @@ Return a list containing the request itself and the line within the file."
     (ivy-read "HTTP requests: " all-requests
               :action (lambda (x)
 			(dot-http--prepare-buffer-and-run (cdr x)))
-              :caller 'dot-http-test)))
+              :caller 'dot-http-list-requests)))
 
 (define-derived-mode dot-http-mode
   text-mode "dot-http"
