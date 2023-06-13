@@ -1,10 +1,8 @@
 ;;; dot-http.el --- Convenience mode for dot-http command line tool  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2010-2021 Your Name
-
+;; Copyright (C) 2023 Michael Schlösser
 
 ;; Author: Michael Schlösser
-;; Created: 07 Jun 2023
 
 ;; Keywords: http cli wrapper convenience
 ;; URL: https://example.com/foo
@@ -26,19 +24,23 @@
 (require 'ivy)
 
 (defvar dot-http-tmp-file "/tmp/dot.http",
-  "Defines where the temporary file is created")
+  "Defines the location of the temporary file that is needed when executing requests non-file buffers.")
+
+(defconst dot-http-error-buffer-name "*dot-http Errors*"
+  "If an error occurs write the error output this named buffer.")
 
 (defun dot-http--write-tmp-buffer (start end)
-  "Create a temporary file for execution.  The file contents go from START until END."
+  "Create a temporary file for execution.
+The file contents are defined by START until END (i.e a selected region)."
   (write-region start end dot-http-tmp-file))
 
 (defun dot-http--run-with-file (file line)
-  "Run the actual shell command for FILE and pass the LINE as an argument."
+  "Run the dot-http shell command for FILE and pass the LINE as an argument."
   (shell-command (concat "dot-http "
 			 (format "-l %d " line)
 			 (shell-quote-argument file))
 		 "dot-http Out"
-		 "*dot-http Error*")
+		 dot-http-error-buffer-name)
   )
 
 (defconst dot-http-methods '("GET"
@@ -50,11 +52,11 @@
 			     "PATCH"
 			     "OPTIONS"
 			     "TRACE")
-  "The HTTP methods to look for.")
+  "The HTTP methods to look for.  The list has been taken from the spec document.")
 
 (defun dot-http-find-requests ()
-  "Find all requests in a buffer."
-  
+  "Find all requests in a buffer.
+Return a list containing the request itself and the line within the file."
   (let (found-requests '())
     (goto-char (point-min))
     (while (not (eobp))
@@ -74,6 +76,14 @@
     (delete-file dot-http-tmp-file))
   )
 
+(defun dot-http-run-request-at-point ()
+  "If point is over a request run it."
+  (interactive)
+
+  (if (member (thing-at-point 'word) dot-http-methods)
+      (dot-http--prepare-buffer-and-run (line-number-at-pos)))
+  (error "No request at point"))
+
 (defun dot-http-list-requests ()
   "Search the selected buffer for all requests and provide a list of all findings."
   (interactive)
@@ -84,6 +94,9 @@
 			(dot-http--prepare-buffer-and-run (cdr x)))
               :caller 'dot-http-test)))
 
+(define-derived-mode dot-http-mode
+  text-mode "dot-http"
+  "Major mode for dot-http.")
 
 (provide 'dot-http)
 
