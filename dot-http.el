@@ -72,16 +72,15 @@ Return a list containing the request itself and the line within the file."
     ;; create a temporary file and delete it after completion.
     (dot-http--write-tmp-buffer (point-min) (point-max))
     (dot-http--run-with-file dot-http-tmp-file selected-line)
-    (delete-file dot-http-tmp-file))
-  )
+    (delete-file dot-http-tmp-file)))
 
 (defun dot-http-run-request-at-point ()
   "If point is over a request run it."
   (interactive)
 
   (if (member (thing-at-point 'word) dot-http-methods)
-      (dot-http--prepare-buffer-and-run (line-number-at-pos)))
-  (error "No request at point"))
+      (dot-http--prepare-buffer-and-run (line-number-at-pos))
+    (error "No request at point")))
 
 (defun dot-http-list-requests ()
   "Search the selected buffer for all requests and provide a list of all findings."
