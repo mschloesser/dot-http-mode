@@ -6,5 +6,36 @@ A simple convenience mode that wraps around [dot-http](https://github.com/bayne/
 
 ## Installation
 
-tbd
+tbd 
 
+dot-http mode is not yet published to MELPA or any other repository.
+
+## Usage
+
+### Prerequisites
+
+In order to use this mode [dot-http](https://github.com/bayne/dot-http) needs to be installed and available in your `$PATH`.
+
+### Commands
+
+Whithin a HTTP file you can run a request either by calling `M-x dot-http-run-request-at-point` or `M-x dot-http-list-requests`.
+
+1. Move point to a request (any line that starts with a HTTP method like GET, POST, etc.) and execute by running `dot-http-run-request-at-point`.
+2. Running `dot-http-list-requests` gives you a list of all requests found in the file. Pick one and run the request (you need Ivy for this).
+
+## Todos and Ideas
+
+- Recognize HTTP files and activate mode automatically
+- Provide a keymap
+- Make Ivy optional/configurable
+- Improve output buffer handling
+- Custom faces (colors etc)
+- Auto completion (compare with [restclient.el](https://github.com/pashky/restclient.el))
+
+## Acknowledgment and Inspiration
+
+There are several modes that do similar things like dot-http and, probably, do it way better. 
+
+- [restclient.el](https://github.com/pashky/restclient.el)
+- [Verb](https://github.com/federicotdn/verb)
+- and others
