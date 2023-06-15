@@ -1,2 +1,6 @@
 .snapshot.json
 http-client.env.json
+
+# Added automatically by ‘eldev init’.
+/.eldev
+/Eldev-local

@@ -3,6 +3,8 @@
 ;; Copyright (C) 2023 Michael Schlösser
 
 ;; Author: Michael Schlösser
+;; Version: 0.0.1
+;; Package-Requires: ((emacs "24.4"))
 
 ;; Keywords: http cli wrapper convenience
 ;; URL: https://example.com/foo
@@ -32,7 +34,7 @@
 ;;; Code:
 (require 'ivy)
 
-(defvar dot-http-tmp-file "/tmp/dot.http",
+(defvar dot-http-tmp-file (concat user-emacs-directory "dot.http"),
   "Defines the location of the temporary file that is needed when executing requests non-file buffers.")
 
 (defconst dot-http-error-buffer-name "*dot-http Errors*"
