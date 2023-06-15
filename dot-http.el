@@ -3,6 +3,8 @@
 ;; Copyright (C) 2023 Michael Schlösser
 
 ;; Author: Michael Schlösser
+;; Version: 0.0.1
+;; Package-Requires: ((emacs "24.4"))
 
 ;; Keywords: http cli wrapper convenience
 ;; URL: https://example.com/foo
