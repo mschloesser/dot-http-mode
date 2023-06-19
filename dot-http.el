@@ -4,7 +4,7 @@
 
 ;; Author: Michael Schlösser
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((emacs "24.4") (ivy))
 
 ;; Keywords: http cli wrapper convenience
 ;; URL: https://example.com/foo
@@ -36,6 +36,9 @@
 
 (defvar dot-http-tmp-file (concat user-emacs-directory "dot.http"),
   "Defines the location of the temporary file that is needed when executing requests non-file buffers.")
+
+(defvar dot-http-mode-map nil
+  "Keymap for `dot-http-mode-mode'.")
 
 (defconst dot-http-error-buffer-name "*dot-http Errors*"
   "If an error occurs write the error output this named buffer.")
@@ -102,6 +105,12 @@ Return a list containing the request itself and the line within the file."
               :action (lambda (x)
 			(dot-http--prepare-buffer-and-run (cdr x)))
               :caller 'dot-http-list-requests)))
+
+(progn
+  (setq dot-http-mode-map (make-sparse-keymap))
+  (define-key dot-http-mode-map (kbd "C-c C-c") 'dot-http-run-request-at-point)
+  (define-key dot-http-mode-map (kbd "C-c C-l") 'dot-http-list-requests)
+  )
 
 (define-derived-mode dot-http-mode
   text-mode "dot-http"
