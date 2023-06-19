@@ -26,7 +26,6 @@ Whithin a HTTP file you can run a request either by calling `M-x dot-http-run-re
 ## Todos and Ideas
 
 - Recognize HTTP files and activate mode automatically
-- Provide a keymap
 - Make Ivy optional/configurable
 - Improve output buffer handling
 - Custom faces (colors etc)
